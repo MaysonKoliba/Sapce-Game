@@ -1,8 +1,6 @@
 package SpacePackage;
 import javax.swing.JFrame;
 
-//Mayson's game
-
 public class spaceMain {
 	
 	public static spaceMain game;
