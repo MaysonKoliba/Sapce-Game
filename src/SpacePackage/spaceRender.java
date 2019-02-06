@@ -152,6 +152,89 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 			g.drawString("You Lose!", 510, 390);
 		}
 }
+    
+    public void astroSpawn() {
+    	if(gameStart) {
+			for(int i = 0; i < gameLevel; i++) {
+				astroToggle = random.nextInt(2);
+				astros[i].astroDeployed = true;
+				if(astroToggle == 0) {
+					astros[i].astroPosX = -50;
+					astros[i].astroPosY = random.nextInt(700) + 50;
+					astros[i].astroDirX = 2;
+					astros[i].astroDirY = 0;
+					astros[i].astroPassLeftX = astros[i].astroPosX;
+					astros[i].astroPassLeft = true;
+					astros[i].astroPassRightX = 1400;
+					astros[i].astroPassRight = false;
+				}
+				else if(astroToggle == 1) {
+					astros[i].astroPosX = 1400;
+					astros[i].astroPosY = random.nextInt(700) + 50;
+					astros[i].astroDirX = -2;
+					astros[i].astroDirY = 0;
+					astros[i].astroPassRightX = astros[i].astroPosX;
+					astros[i].astroPassRight = true;
+					astros[i].astroPassLeftX = -50;
+					astros[i].astroPassLeft = false;
+				}
+				
+				for(int k = 0; k < 10; k++) {
+					if(k > 0 && new Rectangle(astros[i].astroPosX,astros[i].astroPosY,100,100).intersects(new Rectangle(astros[k-1].astroPosX,astros[k-1].astroPosY,100,100)) && k-1 != i) {
+						if(astroToggle == 0) {
+							astros[i].astroPosX = -50;
+							astros[i].astroPosY = random.nextInt(700) + 50;
+							astros[i].astroDirX = 2;
+							astros[i].astroDirY = 0;
+							astros[i].astroPassLeftX = astros[i].astroPosX;
+							astros[i].astroPassLeft = true;
+							astros[i].astroPassRightX = 1400;
+							astros[i].astroPassRight = false;
+							astroToggle = random.nextInt(2);
+							k = 0;
+						}
+						else if(astroToggle == 1) {
+							astros[i].astroPosX = 1400;
+							astros[i].astroPosY = random.nextInt(700) + 50;
+							astros[i].astroDirX = -2;
+							astros[i].astroDirY = 0;
+							astros[i].astroPassRight = true;
+							astros[i].astroPassLeftX = -50;
+							astros[i].astroPassLeft = false;
+							astroToggle = random.nextInt(2);
+							k = 0;
+						}
+					}
+					else if(new Rectangle(astros[i].astroPosX,astros[i].astroPosY,100,100).intersects(new Rectangle(astros[k].astroPosX,astros[k].astroPosY,100,100)) && k != i) {
+						if(astroToggle == 0) {
+							astros[i].astroPosX = -50;
+							astros[i].astroPosY = random.nextInt(700) + 50;
+							astros[i].astroDirX = 2;
+							astros[i].astroDirY = 0;
+							astros[i].astroPassLeftX = astros[i].astroPosX;
+							astros[i].astroPassLeft = true;
+							astros[i].astroPassRightX = 1400;
+							astros[i].astroPassRight = false;
+							astroToggle = random.nextInt(2);
+							k = 0;
+						}
+						else if(astroToggle == 1) {
+							astros[i].astroPosX = 1400;
+							astros[i].astroPosY = random.nextInt(700) + 50;
+							astros[i].astroDirX = -2;
+							astros[i].astroDirY = 0;
+							astros[i].astroPassRight = true;
+							astros[i].astroPassLeftX = -50;
+							astros[i].astroPassLeft = false;
+							astroToggle = random.nextInt(2);
+							k = 0;
+						}
+						
+					} 
+				}
+			}
+		}
+    }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -159,87 +242,7 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 		if(!gameOver) {
 		
 			repaint();
-			
-			if(gameStart) {
-				for(int i = 0; i < gameLevel; i++) {
-					astroToggle = random.nextInt(2);
-					astros[i].astroDeployed = true;
-					if(astroToggle == 0) {
-						astros[i].astroPosX = -50;
-						astros[i].astroPosY = random.nextInt(700) + 50;
-						astros[i].astroDirX = 2;
-						astros[i].astroDirY = 0;
-						astros[i].astroPassLeftX = astros[i].astroPosX;
-						astros[i].astroPassLeft = true;
-						astros[i].astroPassRightX = 1400;
-						astros[i].astroPassRight = false;
-					}
-					else if(astroToggle == 1) {
-						astros[i].astroPosX = 1400;
-						astros[i].astroPosY = random.nextInt(700) + 50;
-						astros[i].astroDirX = -2;
-						astros[i].astroDirY = 0;
-						astros[i].astroPassRightX = astros[i].astroPosX;
-						astros[i].astroPassRight = true;
-						astros[i].astroPassLeftX = -50;
-						astros[i].astroPassLeft = false;
-					}
-					
-					for(int k = 0; k < 10; k++) {
-						if(k > 0 && new Rectangle(astros[i].astroPosX,astros[i].astroPosY,100,100).intersects(new Rectangle(astros[k-1].astroPosX,astros[k-1].astroPosY,100,100)) && k-1 != i) {
-							if(astroToggle == 0) {
-								astros[i].astroPosX = -50;
-								astros[i].astroPosY = random.nextInt(700) + 50;
-								astros[i].astroDirX = 2;
-								astros[i].astroDirY = 0;
-								astros[i].astroPassLeftX = astros[i].astroPosX;
-								astros[i].astroPassLeft = true;
-								astros[i].astroPassRightX = 1400;
-								astros[i].astroPassRight = false;
-								astroToggle = random.nextInt(2);
-								k = 0;
-							}
-							else if(astroToggle == 1) {
-								astros[i].astroPosX = 1400;
-								astros[i].astroPosY = random.nextInt(700) + 50;
-								astros[i].astroDirX = -2;
-								astros[i].astroDirY = 0;
-								astros[i].astroPassRight = true;
-								astros[i].astroPassLeftX = -50;
-								astros[i].astroPassLeft = false;
-								astroToggle = random.nextInt(2);
-								k = 0;
-							}
-						}
-						else if(new Rectangle(astros[i].astroPosX,astros[i].astroPosY,100,100).intersects(new Rectangle(astros[k].astroPosX,astros[k].astroPosY,100,100)) && k != i) {
-							if(astroToggle == 0) {
-								astros[i].astroPosX = -50;
-								astros[i].astroPosY = random.nextInt(700) + 50;
-								astros[i].astroDirX = 2;
-								astros[i].astroDirY = 0;
-								astros[i].astroPassLeftX = astros[i].astroPosX;
-								astros[i].astroPassLeft = true;
-								astros[i].astroPassRightX = 1400;
-								astros[i].astroPassRight = false;
-								astroToggle = random.nextInt(2);
-								k = 0;
-							}
-							else if(astroToggle == 1) {
-								astros[i].astroPosX = 1400;
-								astros[i].astroPosY = random.nextInt(700) + 50;
-								astros[i].astroDirX = -2;
-								astros[i].astroDirY = 0;
-								astros[i].astroPassRight = true;
-								astros[i].astroPassLeftX = -50;
-								astros[i].astroPassLeft = false;
-								astroToggle = random.nextInt(2);
-								k = 0;
-							}
-							
-						} 
-					}
-				}
-			}
+			astroSpawn();
 			
 			for(int i = 0; i < 10; i++) {
 				if(new Rectangle(shipX,shipY,100,50).intersects(new Rectangle(astros[i].astroPosX,astros[i].astroPosY,60,70))) {
@@ -351,13 +354,18 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 						}
 						astros[i].astroBounce++;
 					}
-					else {
-						//hello
+					
+					for(int k = 0; k < 10; k++) {
+						if(new Rectangle(astros[i].astroPosX,astros[i].astroPosY,60,60).intersects(new Rectangle(astros[k].astroPosX,astros[k].astroPosY,60,60)) && k != i) {
+							astros[i].astroDirX = -astros[i].astroDirX;
+							astros[k].astroDirX = -astros[k].astroDirX;
+							astros[i].astroDirY = -astros[i].astroDirY;
+							astros[k].astroDirY = -astros[k].astroDirY;
+						} 
 					}
 					
 					astros[i].astroPosX += astros[i].astroDirX;
 					astros[i].astroPosY += astros[i].astroDirY;
-					
 					
 						if(astros[i].astroPassRight) {
 							astros[i].astroPassRightX += astros[i].astroDirX;
