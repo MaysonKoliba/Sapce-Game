@@ -330,7 +330,7 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 						}
 						astros[i].astroBounce++;
 					}
-					else if(astros[i].astroPosX > 1210 && (astros[i].astroPassRightX < 1200 || astros[i].astroPassLeftX > 0)) {
+					else if(astros[i].astroPosX > 1220 && (astros[i].astroPassRightX < 1200 || astros[i].astroPassLeftX > 0)) {
 						astros[i].astroDirY = 1;
 						astros[i].astroDirX = -astros[i].astroDirX;
 						if(astros[i].astroBounce % 3 == 0) {
@@ -338,7 +338,7 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 						}
 						astros[i].astroBounce++;
 					}
-					else if(astros[i].astroPosY > 770 && (astros[i].astroPassRightX < 1200 || astros[i].astroPassLeftX > 0)) {
+					else if(astros[i].astroPosY > 790 && (astros[i].astroPassRightX < 1200 || astros[i].astroPassLeftX > 0)) {
 						astros[i].astroDirX = 2;
 						astros[i].astroDirY = -astros[i].astroDirY;
 						if(astros[i].astroBounce % 3 == 0) {
