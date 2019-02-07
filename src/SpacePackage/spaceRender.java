@@ -25,6 +25,7 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 	private int score = 0;
 	private int astroToggle = 0;
 	private int numBalls = 4;
+	private boolean gamePause = false;
 	private boolean gameOver = false;
 	private boolean gameWin = false;
 	private boolean gameLose = false;
@@ -138,6 +139,13 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 			g.drawImage(ship, shipX, shipY, 120, 80, null);
 		}
 		
+		//pause
+		if(gamePause) {
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("serif",Font.BOLD,64));
+			g.drawString("PAUSE", 545, 390);
+		}
+		
 		//gameWin
 		if(gameWin) {
 			g.setColor(Color.WHITE);
@@ -154,7 +162,7 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 }
     
     public void astroSpawn() {
-    	if(gameStart) {
+    	if(gameStart && !gamePause) {
 			for(int i = 0; i < gameLevel; i++) {
 				astroToggle = random.nextInt(2);
 				astros[i].astroDeployed = true;
@@ -238,10 +246,11 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		if(!gameOver) {
-		
 			repaint();
+		}
+		
+		if(!gameOver && !gamePause) {
 			astroSpawn();
 			
 			for(int i = 0; i < 10; i++) {
@@ -421,73 +430,80 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 	public void keyPressed(KeyEvent e) {
 		int i = e.getKeyCode();
 		
-		if(i == KeyEvent.VK_RIGHT) {
-			for(int k = 0; k < 4; k++) {
-				if(!balls[k].ballFired) {
-					balls[k].ballFired = true;
-					balls[k].ballPosX = shipX +60;
-					balls[k].ballPosY = shipY +40;
-					balls[k].ballDirX = 3;
-					balls[k].ballDirY = 0;
-					numBalls--;
-					loopBreak = true;
-					if(loopBreak) {
-						break;
-					}
-				}
-			} 
-			loopBreak = false;
+		if(i == KeyEvent.VK_SPACE) {
+			gamePause = !gamePause;
 		}
-		if(i == KeyEvent.VK_LEFT) {
-			for(int k = 0; k < 4; k++) {
-				if(!balls[k].ballFired) {
-					balls[k].ballFired = true;
-					balls[k].ballPosX = shipX +60;
-					balls[k].ballPosY = shipY +40;
-					balls[k].ballDirX = -3;
-					balls[k].ballDirY = 0;
-					numBalls--;
-					loopBreak = true;
-					if(loopBreak) {
-						break;
+		
+		if(!gamePause) {
+		
+			if(i == KeyEvent.VK_RIGHT) {
+				for(int k = 0; k < 4; k++) {
+					if(!balls[k].ballFired) {
+						balls[k].ballFired = true;
+						balls[k].ballPosX = shipX +60;
+						balls[k].ballPosY = shipY +40;
+						balls[k].ballDirX = 3;
+						balls[k].ballDirY = 0;
+						numBalls--;
+						loopBreak = true;
+						if(loopBreak) {
+							break;
+						}
+					}
+				} 
+				loopBreak = false;
+			}
+			if(i == KeyEvent.VK_LEFT) {
+				for(int k = 0; k < 4; k++) {
+					if(!balls[k].ballFired) {
+						balls[k].ballFired = true;
+						balls[k].ballPosX = shipX +60;
+						balls[k].ballPosY = shipY +40;
+						balls[k].ballDirX = -3;
+						balls[k].ballDirY = 0;
+						numBalls--;
+						loopBreak = true;
+						if(loopBreak) {
+							break;
+						}
 					}
 				}
+				loopBreak = false;
 			}
-			loopBreak = false;
-		}
-		if(i == KeyEvent.VK_UP) {
-			for(int k = 0; k < 4; k++) {
-				if(!balls[k].ballFired) {
-					balls[k].ballFired = true;
-					balls[k].ballPosX = shipX +60;
-					balls[k].ballPosY = shipY +40;
-					balls[k].ballDirY = -3;
-					balls[k].ballDirX = 0;
-					numBalls--;
-					loopBreak = true;
-					if(loopBreak) {
-						break;
+			if(i == KeyEvent.VK_UP) {
+				for(int k = 0; k < 4; k++) {
+					if(!balls[k].ballFired) {
+						balls[k].ballFired = true;
+						balls[k].ballPosX = shipX +60;
+						balls[k].ballPosY = shipY +40;
+						balls[k].ballDirY = -3;
+						balls[k].ballDirX = 0;
+						numBalls--;
+						loopBreak = true;
+						if(loopBreak) {
+							break;
+						}
 					}
 				}
+				loopBreak = false;
 			}
-			loopBreak = false;
-		}
-		if(i == KeyEvent.VK_DOWN) {
-			for(int k = 0; k < 4; k++) {
-				if(!balls[k].ballFired) {
-					balls[k].ballFired = true;
-					balls[k].ballPosX = shipX +60;
-					balls[k].ballPosY = shipY +40;
-					balls[k].ballDirY = 3;
-					balls[k].ballDirX = 0;
-					numBalls--;
-					loopBreak = true;
-					if(loopBreak) {
-						break;
+			if(i == KeyEvent.VK_DOWN) {
+				for(int k = 0; k < 4; k++) {
+					if(!balls[k].ballFired) {
+						balls[k].ballFired = true;
+						balls[k].ballPosX = shipX +60;
+						balls[k].ballPosY = shipY +40;
+						balls[k].ballDirY = 3;
+						balls[k].ballDirX = 0;
+						numBalls--;
+						loopBreak = true;
+						if(loopBreak) {
+							break;
+						}
 					}
 				}
+				loopBreak = false;
 			}
-			loopBreak = false;
 		}
 	}
 
