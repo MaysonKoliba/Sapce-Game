@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.Random;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -25,7 +24,7 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 	private int score = 0;
 	private int astroToggle = 0;
 	private int numBalls = 4;
-	private boolean gamePause = false;
+	private boolean gamePause = true;
 	private boolean gameOver = false;
 	private boolean gameWin = false;
 	private boolean gameLose = false;
@@ -141,9 +140,17 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 		
 		//pause
 		if(gamePause) {
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("serif",Font.BOLD,64));
-			g.drawString("PAUSE", 545, 390);
+			
+			if(gameLevel == 1 && gameStart) {
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("serif",Font.BOLD,52));
+				g.drawString("(Press Space To Start)", 400, 390);
+			}
+			else {
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("serif",Font.BOLD,64));
+				g.drawString("PAUSE", 545, 390);
+			}
 		}
 		
 		//gameWin
@@ -151,6 +158,8 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("serif",Font.BOLD,64));
 			g.drawString("You Win!", 520, 390);
+			g.setFont(new Font("serif",Font.BOLD,40));
+			g.drawString("(Space To Play Again)", 455, 440);
 		}
 		
 		//gameLose
@@ -158,8 +167,37 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("serif",Font.BOLD,64));
 			g.drawString("You Lose!", 510, 390);
+			g.setFont(new Font("serif",Font.BOLD,40));
+			g.drawString("(Space To Play Again)", 455, 440);
 		}
-}
+    }
+    
+    public void newGame() {
+    	gameLevel = 1;
+    	astrosHit = 0;
+    	score = 0;
+    	astroToggle = 0;
+    	numBalls = 4;
+    	gamePause = false;
+    	gameOver = false;
+    	gameWin = false;
+    	gameLose = false;
+    	mouseDragged = false;
+    	gameStart = true;
+    	loopBreak = false;
+    	
+    	for(int i = 0; i < 4; i++) {
+			gameElements ball = new gameElements();
+			balls[i] = ball;
+		}
+		
+		for(int i = 0; i < 10; i++) {
+			gameElements astro = new gameElements();
+			astros[i] = astro;
+		} 
+		
+		timer.start();
+    }
     
     public void astroSpawn() {
     	if(gameStart && !gamePause) {
@@ -432,6 +470,12 @@ public class spaceRender extends JPanel implements ActionListener,KeyListener,Mo
 		
 		if(i == KeyEvent.VK_SPACE) {
 			gamePause = !gamePause;
+		}
+		
+		if(gameLose || gameWin) {
+			if(i == KeyEvent.VK_SPACE) {
+				newGame();
+			}
 		}
 		
 		if(!gamePause) {
